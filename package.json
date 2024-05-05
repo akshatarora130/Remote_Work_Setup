@@ -26,6 +26,7 @@
   ],
   "dependencies": {
     "@next-auth/prisma-adapter": "^0.4.4-canary.81",
-    "dotenv-cli": "^7.4.1"
+    "dotenv-cli": "^7.4.1",
+    "ws": "^1.0.0"
   }
 }
