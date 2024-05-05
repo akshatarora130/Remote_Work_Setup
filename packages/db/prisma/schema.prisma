@@ -43,6 +43,34 @@ model User {
   sessions      Session[]
 }
 
+model Company {
+  id   String @id @default(cuid())
+  name String
+  team Team[]
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  company     Company  @relation(fields: [companyId], references: [id])
+  members     Member[]
+  companyId   String
+}
+
+enum roles {
+  teamLead
+  teamMember
+}
+
+model Member {
+  id     String  @id @default(cuid())
+  name   String
+  role   roles
+  team   Team?   @relation(fields: [teamId], references: [id])
+  teamId String?
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique
