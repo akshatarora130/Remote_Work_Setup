@@ -41,12 +41,17 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  active        Boolean   @default(false)
 }
 
 model Company {
-  id   String @id @default(cuid())
-  name String
-  team Team[]
+  id       String @id @default(cuid())
+  name     String
+  head     Member @relation(fields: [memberId], references: [id])
+  location String
+  service  String
+  teams    Team[]
+  memberId String
 }
 
 model Team {
@@ -58,17 +63,17 @@ model Team {
   companyId   String
 }
 
-enum roles {
-  teamLead
-  teamMember
-}
-
 model Member {
-  id     String  @id @default(cuid())
-  name   String
-  role   roles
-  team   Team?   @relation(fields: [teamId], references: [id])
-  teamId String?
+  id      String    @id @default(cuid())
+  name    String
+  email   String
+  DOB     DateTime  @db.Date
+  number  Int
+  role    String?
+  head    Boolean   @default(false)
+  team    Team?     @relation(fields: [teamId], references: [id])
+  teamId  String?
+  Company Company[]
 }
 
 model VerificationToken {

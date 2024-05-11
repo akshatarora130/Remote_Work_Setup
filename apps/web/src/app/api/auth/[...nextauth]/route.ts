@@ -29,6 +29,7 @@ export const authOptions = {
     callbacks: {
         async session({ session, user } : SessionProps) {
             session.user.id = user.id;
+            session.user.active = user.active
             return session;
         },
     },
